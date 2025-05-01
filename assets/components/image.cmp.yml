@@ -1,0 +1,39 @@
+type: "Image"
+description: "Static image"
+fields:
+  position:
+    type: "text"
+    default: "absolute"
+    editable: false
+  top:
+    type: "measure"
+    default: "0mm"
+    editable: true
+  left:
+    type: "measure"
+    default: "0mm"
+    editable: true
+  width:
+    type: "measure"
+    default: "100%"
+    editable: true
+  height:
+    type: "measure"
+    default: "100%"
+    editable: true
+  src:
+    type: "path"
+    default: "image.jpg"
+    editable: true
+
+is_container: false
+
+jinja: |
+  <img src={{ src }} style="
+    overflow: hidden;
+    position: {{ position }};
+    left: {{ left }};
+    top: {{ top }};
+    width: {{ width }};
+    height: {{ height }};
+  ">

@@ -1,0 +1,23 @@
+name: Sample template
+description: Sample template for testing
+schema:
+  - name: "title"
+    type: text
+    default: "Card title"
+  - name: "picture"
+    type: path
+    default: "images/frameTexture01.png"
+  - name: "cost"
+    type: number
+    default: 1
+frame:
+  width: "63.5mm"   # Standard poker card size
+  height: "88.9mm"
+  children:
+    - !Comp:Box
+      height: 50%
+      top: 50%
+      children:
+        - !Comp:Image
+          src: !Ref
+             Image

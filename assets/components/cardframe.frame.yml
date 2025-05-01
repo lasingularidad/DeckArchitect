@@ -1,0 +1,60 @@
+type: "Frame"
+description: "Card frame. Topmost component"
+fields:
+  width:
+    type: "measure"
+    default: "63.5mm"
+    editable: true
+  height:
+    type: "measure"
+    default: "88.9mm"
+    editable: true
+  corner_radius:
+    type: "measure"
+    default: "4mm"
+    editable: true
+  border_width:
+    type: "measure"
+    default: "2mm"
+    editable: true
+  border_color:
+    type: "color"
+    default: "#000000"
+    editable: true
+  bleeding:
+    type: "measure"
+    default: "2mm"
+    editable: true
+
+is_container: true
+
+jinja: |
+  {% set total_border_width = border_width + bleeding %}
+  {% set total_border_radius = corner_radius + bleeding %}
+  {% set interior_width = width - border_width*2 %}
+  {% set interior_height = height - border_width*2 %}
+  <!doctype html>
+  <div style="
+    overflow: hidden;
+    position: absolute;
+    width: {{ interior_width }};
+    height: {{ interior_height }};
+    border-style: solid;
+    border-radius: {{ total_border_radius }};
+    border-width: {{ total_border_width }};
+    border-color: {{ border_color }};
+  ">
+    {{ children|indent}}
+  </div>
+  
+  <div style="
+    overflow: hidden;
+    position: absolute;
+    width: {{ width-0.2 }};
+    height: {{ height - 0.2}};
+    border-style: dashed;
+    border-radius: {{ corner_radius }};
+    border-width: 0.2mm;
+    border-color: #FF0000;
+    margin: 2mm;
+  "/>

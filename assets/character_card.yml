@@ -1,0 +1,138 @@
+# character_card.yml
+name: "Fantasy Character Card"
+card_size:
+  width: "63.5mm"   # Standard poker card size
+  height: "88.9mm"
+dpi: 300
+components:
+  # Background Layer
+  - type: "Image"
+    id: "background"
+    properties:
+      source: "assets/card_background.jpg"
+      position_x: "0mm"
+      position_y: "0mm"
+      width: "100%"
+      height: "100%"
+      scaling: "cover"
+
+  # Title Section
+  - type: "Text"
+    id: "title"
+    properties:
+      content:
+        value: "text:name"
+        default: "Unnamed Character"
+      position_x: "10mm"
+      position_y: "5mm"
+      width: "80%"
+      height: "15mm"
+      font_family: "Arial Black"
+      font_size: "16pt"
+      color: "#FFFFFF"
+      align: "center"
+      text_shadow: "1mm 1mm 2mm rgba(0,0,0,0.7)"
+
+  # Character Image
+  - type: "Image"
+    id: "character_image"
+    properties:
+      source: "image:character_image_path"
+      position_x: "50%"
+      position_y: "25mm"
+      width: "50mm"
+      height: "50mm"
+      scaling: "contain"
+      anchor: "center"
+      border_width: "0.5mm"
+      border_color: "#FFFFFF"
+
+  # Attribute Badges
+  - type: "Composite"
+    id: "attribute_container"
+    properties:
+      position_x: "5mm"
+      position_y: "70mm"
+      width: "90%"
+      height: "15mm"
+    components:
+      - type: "Rectangle"
+        properties:
+          width: "100%"
+          height: "100%"
+          fill_color: "#2C3E50"
+          corner_radius: "3mm"
+          opacity: 0.9
+
+      - type: "Text"
+        properties:
+          content: "Level: {text:level}"
+          position_x: "5mm"
+          position_y: "50%"
+          width: "30%"
+          font_size: "12pt"
+          color: "#ECF0F1"
+          vertical_align: "middle"
+
+      - type: "Text"
+        properties:
+          content: "Class: {text:class}"
+          position_x: "35%"
+          position_y: "50%"
+          width: "30%"
+          font_size: "12pt"
+          color: "#3498DB"
+          vertical_align: "middle"
+
+      - type: "Text"
+        properties:
+          content: "HP: {text:hp}/{text:max_hp}"
+          position_x: "65%"
+          position_y: "50%"
+          width: "30%"
+          font_size: "12pt"
+          color: "#E74C3C"
+          vertical_align: "middle"
+
+  # Stats Block
+  - type: "Composite"
+    id: "stats_block"
+    properties:
+      position_x: "5mm"
+      position_y: "75mm"
+      width: "90%"
+      height: "10mm"
+    components:
+      - type: "Rectangle"
+        properties:
+          width: "100%"
+          height: "100%"
+          fill_color: "#34495E"
+          corner_radius: "2mm"
+
+      - type: "Text"
+        properties:
+          content: "STR: {text:strength} | DEX: {text:dexterity} | INT: {text:intelligence}"
+          position_x: "50%"
+          position_y: "50%"
+          width: "90%"
+          font_size: "10pt"
+          color: "#BDC3C7"
+          align: "center"
+          vertical_align: "middle"
+
+  # Flavor Text
+  - type: "Text"
+    id: "flavor_text"
+    properties:
+      content: "text:flavor_text"
+      position_x: "5mm"
+      position_y: "80mm"
+      width: "90%"
+      height: "auto"
+      font_family: "Garamond"
+      font_size: "9pt"
+      color: "#ECF0F1"
+      align: "justify"
+      line_height: 1.4
+      padding: "1mm"

@@ -1,0 +1,55 @@
+type: "Text"
+description: "Text element with styling"
+fields:
+  content:
+    type: "text"
+    default: "Your text here"
+  width:
+    type: "measure"
+    default: "100%"
+  height:
+    type: "measure"
+    default: "100%"
+  padding:
+    type: "measure"
+    default: "1mm"
+  font_family:
+    type: "text"
+    default: "Arial"
+  font_size:
+    type: "text"
+    default: "12pt"
+  color:
+    type: "color"
+    default: "#000000"
+  horizontal_align:
+    type: "text"
+    default: "left"
+  vertical_align:
+    type: "text"
+    default: "center" # "flex-start"
+  line_height:
+    type: "number"
+    default: 1.2
+
+jinja: |
+  <div style="
+    position: absolute;
+    display: flex;
+    width: {{ width }};
+    height: {{ height }};
+    align-items: {{ vertical_align }};
+  ">
+    <p style="
+      margin: 0px;
+      padding: {{ padding }};
+      text-align: {{ horizontal_align }};
+      font-family: {{ font_family }};
+      font-size: {{ font_size }};
+      line-height: {{ line_height }};
+      color: {{ color }};
+      ">
+        {{ content }}
+    </p>
+    
+  </div>

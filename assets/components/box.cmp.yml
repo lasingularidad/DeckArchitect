@@ -1,0 +1,49 @@
+type: "Box"
+description: "Fixed size box"
+fields:
+  position:
+    type: "text"
+    default: "absolute"
+    editable: false
+  top:
+    type: "measure"
+    default: "0mm"
+    editable: true
+  left:
+    type: "measure"
+    default: "0mm"
+    editable: true
+  width:
+    type: "measure"
+    default: "100%"
+    editable: true
+  height:
+    type: "measure"
+    default: "5mm"
+    editable: true
+  border_width:
+    type: "measure"
+    default: "1mm"
+    editable: true
+  border_color:
+    type: "color"
+    default: "#000000"
+    editable: true
+
+is_container: true
+
+jinja: |
+  <div style="
+    overflow: hidden;
+    box-sizing: border-box;
+    position: {{ position }};
+    left: {{ left }};
+    top: {{ top }};
+    width: {{ width }};
+    height: {{ height }};
+    border-style: solid;
+    border-width: {{ border_width }};
+    border-color: {{ border_color }};
+  ">
+    {{ children|indent}}
+  </div>

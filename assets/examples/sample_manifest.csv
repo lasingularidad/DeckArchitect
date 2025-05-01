@@ -1,0 +1,5 @@
+Name,Cost,Image
+text,number,path
+Helmet,10,helmet.png
+"Leather apron",20,apron.png
+Boots,15,"images\iron-toed boots.png"
