@@ -3,6 +3,7 @@ from pathlib import Path
 import yaml
 
 from src.core.data.fields import Field
+from src.core.data.schema import DataSchema
 from src.core.exceptions import ComponentError
 
 from typing import Dict, Any
@@ -57,6 +58,16 @@ class Component:
 
     def get_template(self):
         return self._jinja
+
+    def get_schema(self):
+        schema_fields = [field for field in self._fields.values() if field.is_reference()]
+        target_names = [field.get_target() for field in schema_fields]
+        field_types = [field.get_type() for field in schema_fields]
+        schema = DataSchema(target_names, field_types)
+        if self._children is not None:
+            for child in self._children:
+                schema.update(child.get_schema())
+        return schema
 
     """ def render(self, my_env: Environment, card: Dict[str, Any]) -> str:
         template = my_env.from_string(self._jinja)

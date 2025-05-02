@@ -49,3 +49,15 @@ class DataSchema(OrderedDict):
         for f_name in self.get_field_names():
             if self[f_name] != record.get_field(f_name).get_type():
                 raise SchemaValidationError(f'Invalid record field type for field {f_name} of type {self[f_name]}')
+
+    def validate_component(self, component: "Component"):
+        cmp_schema=component.get_schema()
+        for name, f_type in cmp_schema.items():
+            self.validate_reference(name, f_type)
+
+    def validate_reference(self, target, field_type):
+        if target not in self.keys():
+            raise SchemaValidationError(f'Reference to field {target} not present in current schema')
+        if self[target] != field_type:
+            raise SchemaValidationError(f'Invalid reference of type {field_type} '
+                                        f'to field of type {self[target]} in current schema')

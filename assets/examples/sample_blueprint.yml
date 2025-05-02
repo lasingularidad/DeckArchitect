@@ -1,15 +1,15 @@
-name: Sample template
-description: Sample template for testing
+name: Sample blueprint
+description: Sample blueprint for testing
 schema:
   - name: "title"
     type: text
-    default: "Card title"
-  - name: "picture"
+    # default: "Card title"
+  - name: "Image"
     type: path
-    default: "images/frameTexture01.png"
+    # default: "images/frameTexture01.png"
   - name: "cost"
     type: number
-    default: 1
+    # default: 1
 frame:
   width: "63.5mm"   # Standard poker card size
   height: "88.9mm"
@@ -19,5 +19,4 @@ frame:
       top: 50%
       children:
         - !Comp:Image
-          src: !Ref
-             Image
+          src: !Ref Image

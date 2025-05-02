@@ -8,10 +8,11 @@ from typing import List, Iterator
 
 class Record:
 
-    def __init__(self, schema: DataSchema, values: List[str]):
-        self._schema = schema
+    def __init__(self, schema: DataSchema=None, values: List[str]=None):
+        self._schema = schema or DataSchema([],[])
+        values = values or []
         fields = self._schema.populate_fields(values)
-        self._data = dict(zip(schema.keys(), fields))
+        self._data = dict(zip(self._schema.keys(), fields))
 
     def get_field_names(self):
         return self._data.keys()
@@ -23,6 +24,9 @@ class Record:
 
     def get_field(self, field_name: str):
         return self._data[field_name]
+
+    def validate_reference(self, target, f_type):
+       self._schema.validate_reference(target, f_type)
 
 
 class CardManifest:

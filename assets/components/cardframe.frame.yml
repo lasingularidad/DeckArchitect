@@ -57,4 +57,5 @@ jinja: |
     border-width: 0.2mm;
     border-color: #FF0000;
     margin: 2mm;
-  "/>
+  ">
+  </div>

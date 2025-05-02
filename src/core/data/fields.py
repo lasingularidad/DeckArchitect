@@ -77,15 +77,6 @@ class Reference:
     def get_target(self):
         return self._target
 
-    def get_value(self, record: Dict[str, Any]):
-        return record[self._target]
-
-    def get_type(self):
-        return self._type
-
-    def set_type(self, f_type: FieldType):
-        self._type = f_type
-
     @classmethod
     def from_yaml_node(cls, loader: yaml.Loader, node):
         return cls(loader.construct_scalar(node))
@@ -94,18 +85,26 @@ class Reference:
 class Field:
 
     def __init__(self, value_type: Union[str, FieldType], editable=True, value=None):
+
         self._type = FieldType(value_type)
         self._editable = editable
+        self._target = None
 
         self._value = None
         if value is not None:
             self._force_set_value(value)
 
-    def get_type(self):
-        return self._type
-
     def is_editable(self):
         return self._editable
+
+    def is_reference(self):
+        return self._target is not None
+
+    def get_target(self):
+        return self._target
+
+    def get_type(self):
+        return self._type
 
     def set_value(self, new_value: str):
         if not self.is_editable():
@@ -113,20 +112,20 @@ class Field:
                                        f'Current value: "{self._value}", new value: "{new_value}"')
         self._force_set_value(new_value)
 
-    def get_value(self, card: Optional[Dict[str, Any]] = None):
-        if isinstance(self._value, Reference):
-            return self._value.get_value(card)
+    def get_value(self, record: "Record" = None):
+        from src.core.data.manifest import Record
+        if record is None:
+            record = Record()
+        if self.is_reference():
+            record.validate_reference(self.get_target(), self.get_type())
+            return record.get_field(self._target).get_value()
         else:
             return self._value
 
     def _force_set_value(self, new_value: Union[str, Reference]):
         if isinstance(new_value, Reference):
-            """if self._type != new_value.get_type():
-                raise FieldValidationError(f'Trying to store a reference of type {new_value.get_type()}'
-                                           f' in a field of type {self._type}')
-            else:
-                self._value = new_value"""
-            new_value.set_type(self._type)
+            self._target = new_value.get_target()
+            self._value = None
         else:
             match self._type:
                 case FieldType.TEXT:
@@ -143,6 +142,8 @@ class Field:
                     self._value = str(new_value)
                 case FieldType.PATH:
                     self._value = Path(new_value)
+
+            self._target = None
 
     def __str__(self):
         return f'[type: {self._type}; value: {self._value}]'
