@@ -14,9 +14,28 @@ frame:
   width: "63.5mm"   # Standard poker card size
   height: "88.9mm"
   children:
+    - !Comp:Image
+      src: !Ref Image
+
     - !Comp:Box
-      height: 50%
-      top: 50%
-      children:
-        - !Comp:Image
-          src: !Ref Image
+      top: 3mm
+      height: 10mm
+      left: 5%
+      width: 20%
+    - !Comp:Box
+      top: 3mm
+      height: 10mm
+      left: 30%
+      width: 65%
+
+    - !Comp:Box
+      top: 15mm
+      height: 30mm
+      left: 5%
+      width: 90%
+
+    - !Comp:Box
+      top: 47mm
+      height: 30mm
+      left: 5%
+      width: 90%
