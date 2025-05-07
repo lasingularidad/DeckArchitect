@@ -1,10 +1,10 @@
-type: "Box"
-description: "Fixed size box"
+type: "HRepeater"
+description: "Repeat children horizontally given times"
 fields:
   position:
     type: "text"
     default: "absolute"
-    editable: true
+    editable: false
   top:
     type: "measure"
     default: "0mm"
@@ -21,19 +21,24 @@ fields:
     type: "measure"
     default: "5mm"
     editable: true
-  border_width:
-    type: "measure"
-    default: "1mm"
+  repeats:
+    type: "number"
+    default: 1
     editable: true
-  border_color:
-    type: "color"
-    default: "#000000"
+  justify:
+    type: "text"
+    default: "start"
+    editable: true
+  alignment:
+    type: "text"
+    default: "center"
     editable: true
 
 is_container: true
 
 jinja: |
   <div style="
+    display: flex;
     overflow: hidden;
     box-sizing: border-box;
     position: {{ position }};
@@ -41,9 +46,15 @@ jinja: |
     top: {{ top }};
     width: {{ width }};
     height: {{ height }};
-    border-style: solid;
-    border-width: {{ border_width }};
-    border-color: {{ border_color }};
+    justify-content: {{ justify }};
+    align-items: {{ alignment }};
   ">
-    {{ children|indent}}
+    {% for n in range(repeats|int) %}
+      <div style="
+        transform: translate(calc({{2-n}}*10px));
+        z-index: {{ repeats|int-n }}
+      ">
+        {{ children|indent }}
+      </div>
+    {% endfor %}
   </div>

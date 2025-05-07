@@ -27,6 +27,20 @@ frame:
       height: 10mm
       left: 30%
       width: 65%
+      children:
+        - !Comp:Repeater
+          width: 100%
+          height: 100%
+          repeats: 3
+          justify: end
+          children:
+            - !Comp:Box
+              height: 5mm
+              width: 5mm
+              position: relative
+              children:
+                - !Comp:Image
+                  src: "images/docTexture01.png"
 
     - !Comp:Box
       top: 15mm
