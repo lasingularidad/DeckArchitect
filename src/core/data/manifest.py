@@ -60,6 +60,8 @@ class CardManifest:
         for record in records:
             self._schema.validate_record(record)
 
+    def __iter__(self):
+        return iter(self._records)
 
 if __name__ == "__main__":
 

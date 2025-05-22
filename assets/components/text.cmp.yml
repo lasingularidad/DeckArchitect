@@ -4,6 +4,7 @@ fields:
   content:
     type: "text"
     default: "Your text here"
+    editable: true
   width:
     type: "measure"
     default: "100%"

@@ -1,6 +1,7 @@
 from pathlib import Path
 import yaml
 
+from src.core.data.manifest import CardManifest
 from src.core.data.schema import DataSchema
 from src.core.data.fields import Reference
 from src.core.exceptions import SchemaValidationError
@@ -75,9 +76,10 @@ if __name__ == "__main__":
     reg_config.directory = Path('../../../assets/components/')
     reg = ComponentRegistry(reg_config)
 
-    test_template = Blueprint.load(Path('../../../assets/examples/sample_blueprint.yml'), reg)
+    test_blueprint = Blueprint.load(Path('../../../assets/examples/sample_blueprint.yml'), reg)
+    test_manifest = CardManifest.from_csv('Testing', '../../../assets/examples/sample_manifest.csv')
 
     renderer = Renderer(None)
-    record = Record(test_template.get_schema(), ["Given title", "images/frameTexture01.png", 10])
+    #record = Record(test_blueprint.get_schema(), ["Given title", "images/frameTexture01.png", 10])
     with open('../../../output/index.html', 'wt') as fp:
-        fp.write(renderer.render(test_template, record))
+        fp.write(renderer.render_manifest(test_blueprint, test_manifest))

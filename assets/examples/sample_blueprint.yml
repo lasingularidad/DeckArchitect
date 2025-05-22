@@ -1,10 +1,10 @@
 name: Sample blueprint
 description: Sample blueprint for testing
 schema:
-  - name: "title"
+  - name: "Title"
     type: text
     # default: "Card title"
-  - name: "Image"
+  - name: "BGImage"
     type: path
     # default: "images/frameTexture01.png"
   - name: "cost"
@@ -15,7 +15,7 @@ frame:
   height: "88.9mm"
   children:
     - !Comp:Image
-      src: !Ref Image
+      src: !Ref BGImage
 
     - !Comp:Box
       top: 3mm
@@ -28,10 +28,10 @@ frame:
       left: 30%
       width: 65%
       children:
-        - !Comp:Repeater
+        - !Comp:HRepeater
           width: 100%
           height: 100%
-          repeats: 3
+          repeats: !Ref cost
           justify: end
           children:
             - !Comp:Box
@@ -47,6 +47,9 @@ frame:
       height: 30mm
       left: 5%
       width: 90%
+      children:
+        - !Comp:Text
+          content: !Ref Title
 
     - !Comp:Box
       top: 47mm

@@ -1,8 +1,9 @@
 from jinja2 import Environment
+from vbuild import render
 
 from src.core.components.blueprint import Blueprint
 from src.core.components.components import Component
-from src.core.data.manifest import Record
+from src.core.data.manifest import Record, CardManifest
 
 from typing import Union
 
@@ -24,3 +25,10 @@ class Renderer:
             return template.render(context)
         else:
             return self.render(frame, record)
+
+    def render_manifest(self, blueprint: Blueprint, manifest: CardManifest):
+        output = '<!doctype html>\n'
+        for record in manifest:
+            output += self.render(blueprint, record)
+
+        return output

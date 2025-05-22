@@ -1,5 +1,5 @@
-Name,Cost,Image
-text,number,path
-Helmet,10,helmet.png
-"Leather apron",20,apron.png
-Boots,15,"images\iron-toed boots.png"
+Title,BGImage,cost
+text,path,number
+Helmet,images/frameTexture01.png, 2
+"Leather apron",images/frameTexture01.png, 2
+Boots,images/frameTexture01.png, 3

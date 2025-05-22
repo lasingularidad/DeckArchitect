@@ -33,7 +33,6 @@ jinja: |
   {% set total_border_radius = corner_radius + bleeding %}
   {% set interior_width = width - border_width*2 %}
   {% set interior_height = height - border_width*2 %}
-  <!doctype html>
   <div style="
     overflow: hidden;
     position: absolute;
