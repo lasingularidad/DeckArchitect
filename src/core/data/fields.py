@@ -106,7 +106,7 @@ class Field:
     def get_type(self):
         return self._type
 
-    def set_value(self, new_value: str):
+    def set_value(self, new_value: Union[str, Reference]):
         if not self.is_editable():
             raise FieldValidationError(f'Trying to edit a non editable field. '
                                        f'Current value: "{self._value}", new value: "{new_value}"')
@@ -131,9 +131,15 @@ class Field:
                 case FieldType.TEXT:
                     self._value = str(new_value)
                 case FieldType.NUMBER:
-                    self._value = float(new_value)
+                    try:
+                        self._value = float(new_value)
+                    except (ValueError, TypeError):
+                        raise FieldValidationError(f'Imvalid number value')
                 case FieldType.MEASURE:
-                    self._value = Measure.parse(new_value)
+                    try:
+                        self._value = Measure.parse(new_value)
+                    except TypeError:
+                        raise FieldValidationError(f'Invalid measure value')
                 case FieldType.COLOR:
                     # Check that input values is a valid hexadecimal color
                     match = re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', new_value)
